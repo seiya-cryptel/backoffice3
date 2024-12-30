@@ -1,0 +1,43 @@
+# version: '3'
+services:
+  nginx:
+    container_name: "boff3-nginx"
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - app
+    ports:
+      - 8083:80
+    volumes:
+      - ./:/src
+
+  app:
+    container_name: "boff3-app"
+    build:
+      context: ./docker/app
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/src
+      - ./docker/app/php.ini:/usr/local/etc/php/php.ini
+      - ./storage/data:/var/www/data
+
+  mysql:
+    image: mysql:8.0.40
+    command: --max_allowed_packet=32505856
+    container_name: "boff3-mysql"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - './storage/data:/data'
+    environment:
+      # MYSQL_ROOT_PASSWORD=root
+      # MYSQL_DATABASE=boff3
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - 13308:3306
