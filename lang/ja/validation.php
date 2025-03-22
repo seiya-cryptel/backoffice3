@@ -3,6 +3,33 @@
 declare(strict_types=1);
 
 return [
+    'custom' => [
+        // 見積
+        'estimate_no' => [
+            'required' => '見積番号必須',
+        ],
+        'client_id' => [
+            'required' => '顧客必須',
+        ],
+        'estimate_title' => [
+            'required' => '見積件名必須',
+        ],
+        'estimateDetails.*.estm_dtl_order' => [
+            'required' => '表示順必須',
+            'numeric' => '表示順数値',
+        ],
+        'estimateDetails.*.estm_dtl_title' => [
+            'required' => '明細名必須',
+        ],
+        'newEstimateDetail.estm_dtl_order' => [
+            'required' => '表示順必須',
+            'numeric' => '表示順数値',
+        ],
+        'newEstimateDetail.estm_dtl_title' => [
+            'required' => '明細名必須',
+        ],
+    ],
+
     'accepted'             => ':Attributeを承認してください。',
     'accepted_if'          => ':Otherが:valueの場合、:attributeを承認する必要があります。',
     'active_url'           => ':Attributeは、有効なURLではありません。',

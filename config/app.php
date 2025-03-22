@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /**
+     * Pagenate limit
+     */
+    'pagination_limit' => env('PAGINATION_LIMIT', 10),
+    'query_get_limit' => env('QUERY_GET_LIMIT', 100),
+    'decimal_digits' => env('DECIMAL_DIGITS', 2),
+    'template' => [
+        'estimate' => env('TEMPLATE_ESTIMATE', 'estimate.xlsx'),
+        'estimate_pdf' => env('TEMPLATE_ESTIMATE_PDF', 'estimate_pdf.xlsx'),
+        'bill' => env('TEMPLATE_INVOICE', 'invoice.xlsx'),
+        'bill_pdf' => env('TEMPLATE_INVOICE', 'invoice_pdf.xlsx'),
+    ],
 ];
