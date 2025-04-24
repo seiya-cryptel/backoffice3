@@ -73,12 +73,36 @@ class Bills extends Component
     {
         return redirect()->route('billEditCreate');
     }
+
     /**
      * open update form
      */
     public function updateBill($id)
     {
         return redirect()->route('billEditUpdate', ['id' => $id]);
+    }
+
+    /**
+     * copy bill
+     */
+    public function copyBill($id)
+    {
+        $originalBill = Bill::find($id);
+        if(empty($originalBill)) {
+            session()->flash('error', '請求書が見つかりません。');
+            return;
+        }
+        $Bill = $originalBill->replicate();
+        $Bill->bill_no = bill::getNextBillNo();
+        $Bill->bill_title = $Bill->bill_title . ' (コピー)';
+        $Bill->bill_date = date('Y-m-d');
+        $Bill->save();
+
+        foreach ($originalBill->billDetails as $originalDetail) {
+            $Detail = $originalDetail->replicate();
+            $Detail->bill_id = $Bill->id;
+            $Detail->save();
+        }
     }
 
     /**

@@ -15,6 +15,7 @@ use App\Models\EstimateDetail;
 use App\Models\Bill;
 use App\Models\BillDetail;
 use App\Models\AppSetting;
+use App\Models\taxRate;
 
 /**
  * Excelスプレッドシートの操作
@@ -110,6 +111,8 @@ class SpreadsheetService
     protected function createEstimateExcel($estimate, $templateFileName)
     {
         $client = $estimate->client;
+        // 税率を取得
+        $taxRates = taxRate::getRate($estimate->estimate_date);
 
         // テンプレートおよびExcelファイルのパスを設定
         $templateFile = storage_path('template') . '/' . $templateFileName;
@@ -121,7 +124,7 @@ class SpreadsheetService
             '%%EstimateNo%%' => $estimate->estimate_no,
             '%%Title%%' => $estimate->estimate_title,
             '%%ClientName%%' => $client->cl_full_name,
-            '%%Amount%%' => number_format($estimate->getAmount()),
+            '%%Amount%%' => number_format($estimate->getAmount($taxRates)),
             '%%MyZip%%' => AppSetting::getSetting('my_zip'),
             '%%MyAddr1%%' => AppSetting::getSetting('my_addr1'),
             '%%MyAddr2%%' => AppSetting::getSetting('my_addr2'),
@@ -249,7 +252,10 @@ class SpreadsheetService
      */
     protected function createBillExcel($bill, $templateFileName)
     {
+        //顧客を取得
         $client = $bill->client;
+        // 税率を取得
+        $taxRates = taxRate::getRate($bill->bill_date);
 
         // テンプレートおよびExcelファイルのパスを設定
         $templateFile = storage_path('template') . '/' . $templateFileName;
@@ -261,7 +267,7 @@ class SpreadsheetService
             '%%BillNo%%' => $bill->bill_no,
             '%%Title%%' => $bill->bill_title,
             '%%ClientName%%' => $client->cl_full_name,
-            '%%Amount%%' => number_format($bill->getAmount()),
+            '%%Amount%%' => number_format($bill->getAmount($taxRates)),
             '%%MyZip%%' => AppSetting::getSetting('my_zip'),
             '%%MyAddr1%%' => AppSetting::getSetting('my_addr1'),
             '%%MyAddr2%%' => AppSetting::getSetting('my_addr2'),

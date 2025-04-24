@@ -28,7 +28,7 @@
             <table class="min-w-full table-auto text-sm">
                 <thead class="bg-gray-200">
                     <tr>
-                        <th>{{ __('No') }}</th>
+                        <th>{{ __('Code') }}</th>
                         <th>{{ __('Name') }}</th>
                         <th>{{ __('Valid') }}</th>
                         <th></th>

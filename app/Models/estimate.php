@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\Utilities;
+
 use App\Models\Bill;
 use App\Models\BillDetail;
 
 class estimate extends Model
 {
+    use Utilities;
+
     /**
      * Relationships
      */
@@ -58,13 +62,23 @@ class estimate extends Model
 
     /**
      * 明細の税込額の合計を取得
+     * @param 税率配列
      */
-    public function getAmount()
+    public function getAmount($taxRates)
     {
-        $amount = 0;
+        $amounts = [0, 0, 0];   // 金額 税率0, 1, 2に分けて合計
+        $taxes = [0, 0, 0];     // 税額 税率 0, 1, 2 に分けて金額の合計から計算する
         foreach($this->estimateDetails as $detail) {
-            $amount += $detail->estm_dtl_amount;
+            $taxType = $detail->estm_dtl_tax_type;
+            $amounts[$taxType] += round(
+                $this->UtlStr2Number($detail->estm_dtl_unit_price) 
+                * $this->UtlStr2Number($detail->estm_dtl_quantity)
+            );
         }
+        // $taxes[0] = round($amounts[0] * $taxRates[0]); 非課税
+        $taxes[1] = floor($amounts[1] * $taxRates[1]);
+        $taxes[2] = floor($amounts[2] * $taxRates[2]);
+        $amount = array_sum($amounts) + array_sum($taxes);
         return $amount;
     }
 

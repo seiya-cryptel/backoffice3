@@ -27,7 +27,7 @@
             <table class="min-w-full table-auto text-sm">
                 <thead class="bg-gray-200">
                     <tr>
-                        <th>{{ __('Order') }}</th>
+                        <th>{{ __('Display Order') }}</th>
                         <th>{{ __('Title') }}</th>
                         <th>{{ __('Valid') }}</th>
                         <th></th>
