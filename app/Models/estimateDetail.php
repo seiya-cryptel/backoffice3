@@ -106,7 +106,7 @@ class estimateDetail extends Model
     public function estmDtlQuantity() : Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value === null ? '' : number_format($value),
+            get: fn ($value) => $value === null ? '' : number_format($value, 2),
             set: fn ($value) => $this->attributes['estm_dtl_quantity'] = $value === '' ? null : $this->UtlStr2Number($value), 
         );
     }

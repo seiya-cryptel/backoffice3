@@ -107,7 +107,7 @@ class billDetail extends Model
     public function billDtlQuantity() : Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value === null ? '' : number_format($value),
+            get: fn ($value) => $value === null ? '' : number_format($value, 2),
             set: fn ($value) => $this->attributes['bill_dtl_quantity'] = $value === '' ? null : $this->UtlStr2Number($value), 
         );
     }
