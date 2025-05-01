@@ -153,6 +153,23 @@ class Bills extends Component
     }
 
     /**
+     * 領収書 PDF ダウンロード
+     */
+    public function downloadReceiptPdf($id)
+    {
+        $Bill = Bill::find($id);
+        if(! empty($Bill)) {
+            try {
+                $SpreadSheetService = new SpreadSheetService();
+                session()->flash('success', '領収書 PDF を作成します。');
+                return $SpreadSheetService->exportReceiptPdf($id);
+            } catch (\Exception $e) {
+                session()->flash('error', $e->getMessage());
+            }
+        }
+    }
+    
+    /**
      * change search keyword
      */
     public function changeSearch()

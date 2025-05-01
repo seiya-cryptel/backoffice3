@@ -58,6 +58,7 @@
                         <button wire:click="copyBill({{$Bill->id}})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">{{ __('Copy') }}</button>
                         <button wire:click="downloadBillPdf({{$Bill->id}})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">{{ __('PDF') }}</button>
                         <button wire:click="downloadBillExcel({{$Bill->id}})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">{{ __('Excel') }}</button>
+                        <button wire:click="downloadReceiptPdf({{$Bill->id}})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">{{ __('Receipt') }}</button>
                         <button onclick="deleteBill({{$Bill->id}})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">{{ __('Delete') }}</button>
                         </td>
                     </tr>

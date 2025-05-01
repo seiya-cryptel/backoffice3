@@ -343,4 +343,27 @@ class SpreadsheetService
          ];
         return response()->download($pdfFile, $fileName, $headers)->deleteFileAfterSend(true);
     }
+
+    /**
+     * 領収書 PDF ファイルをダウンロード
+     * @param $bill_id
+     * @return download response
+     */
+    public function exportReceiptPdf($bill_id)
+    {
+        $bill = Bill::with('client')
+            ->with('billDetails')
+            ->find($bill_id);
+        if(! $bill) {
+            throw new \Exception('請求(' . $bill_id . ')が見つかりません');
+        }
+        $excelFile = $this->createBillExcel($bill, config('app.template.receipt_pdf'));
+        $pdfFile = $this->createPdfFromExcel($excelFile);
+        unlink($excelFile);
+        $fileName = 'receipt' . $bill->bill_no . '.pdf';
+        $headers = [
+            'Content-Type' => 'application/pdf'
+         ];
+        return response()->download($pdfFile, $fileName, $headers)->deleteFileAfterSend(true);
+    }
 }
