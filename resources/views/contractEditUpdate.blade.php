@@ -5,6 +5,18 @@
         </h3>
     </x-slot>
 
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="container">

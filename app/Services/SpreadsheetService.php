@@ -92,6 +92,8 @@ class SpreadsheetService
                 0);
             $sheet->getcell('B' . $nRow)->setValue($estimateDetail->estm_dtl_title);
             $sheet->getcell('E' . $nRow)->setValue($estimateDetail->estm_dtl_unit_price);
+            // セルの書式を #.## に設定
+            $sheet->getcell('F' . $nRow)->getStyle()->getNumberFormat()->setFormatCode('#,##0.00');
             $sheet->getcell('F' . $nRow)->setValue($estimateDetail->estm_dtl_quantity);
             $sheet->getcell('G' . $nRow)->setValue($estimateDetail->estm_dtl_unit);
             $sheet->getcell('H' . $nRow)->setValue($amount);
@@ -234,6 +236,8 @@ class SpreadsheetService
                 0);
             $sheet->getcell('B' . $nRow)->setValue($billDetail->bill_dtl_title);
             $sheet->getcell('E' . $nRow)->setValue($billDetail->bill_dtl_unit_price);
+            // セルの書式を #.## に設定
+            $sheet->getcell('F' . $nRow)->getStyle()->getNumberFormat()->setFormatCode('#,##0.00');
             $sheet->getcell('F' . $nRow)->setValue($billDetail->bill_dtl_quantity);
             $sheet->getcell('G' . $nRow)->setValue($billDetail->bill_dtl_unit);
             $sheet->getcell('H' . $nRow)->setValue($amount);

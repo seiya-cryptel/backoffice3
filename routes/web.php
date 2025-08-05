@@ -108,7 +108,7 @@ function () {
             ->name('clients');
         Route::view('clientEditCreate', 'clientEditCreate')
             ->middleware(['auth', 'verified'])
-            ->name('clienEditCreate');
+            ->name('clientEditCreate');
         Route::view('clientEditUpdate/{id}', 'clientEditUpdate')
             ->middleware(['auth', 'verified'])
             ->name('clientEditUpdate');

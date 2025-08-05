@@ -1,9 +1,9 @@
 FROM php:8.3-fpm
 
 # timezone
-ENV TZ Asia/Tokyo
-RUN echo "${TZ}" > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
+ENV TZ=Asia/Tokyo
+# RUN echo "${TZ}" > /etc/timezone \
+#     && dpkg-reconfigure -f noninteractive tzdata
 
 # Install required libraries
 RUN apt-get update \

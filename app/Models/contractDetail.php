@@ -115,4 +115,15 @@ class contractDetail extends Model
             ->orderBy('cont_dtl_order', 'asc')
             ->get();
     }
+
+    /**
+     * accessor/mutator
+     */
+    public function serviceId(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value === null ? '' : $value,
+            set: fn ($value) => $value === '' ? null : $value,
+        );
+    }
 }

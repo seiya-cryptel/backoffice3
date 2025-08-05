@@ -83,7 +83,7 @@ class ContractEditUpdate extends ContractEditBase
         } catch (\Exception $e) {
             $logMessage = 'Contract updated error ' . $e->getMessage();
             logger($logMessage);
-            session()->flash('error', 'There was a problem updating the contract.');
+            $this->msgError = 'Contract updated error ' . $e->getMessage();
         }
     }
 }

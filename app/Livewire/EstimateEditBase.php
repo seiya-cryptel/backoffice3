@@ -160,7 +160,7 @@ abstract class EstimateEditBase extends Component
     public function mount($id = null)
     {
         $this->id = $id;
-        $this->clients = Client::all();
+        $this->clients = Client::where('isvalid', 1)->orderBy('cl_short_name')->get();
         $this->services = Service::all();
         $this->personRoles = PersonRole::all();
         $this->resetNewEstimateDetailFields();

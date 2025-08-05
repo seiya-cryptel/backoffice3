@@ -1,6 +1,9 @@
 <tr class="border-b">
     <td colspan="10" class="text-lg">
         {{ $Client->cl_mstno }} {{ $Client->cl_full_name }}
+        @if ($msgError)
+            <div class="alert alert-danger">{{ $msgError }}</div>
+        @endif    
     </td>
 </tr>
 <tr class="border-b">

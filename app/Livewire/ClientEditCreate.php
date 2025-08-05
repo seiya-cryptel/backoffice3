@@ -62,7 +62,7 @@ class ClientEditCreate extends ClientEditBase
             'cl_full_name' => $this->cl_full_name,
             'cl_short_name' => $this->cl_short_name,
             'cl_kana_name' => $this->cl_kana_name,
-            'client_group_id' => $this->client_group_id,
+            'client_group_id' => empty($this->client_group_id) ? null : $this->client_group_id,
             'cl_zip' => $this->cl_zip,
             'cl_addr1' => $this->cl_addr1,
             'cl_addr2' => $this->cl_addr2,

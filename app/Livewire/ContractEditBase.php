@@ -30,6 +30,11 @@ abstract class ContractEditBase extends Component
     public $personRoles;
 
     /**
+     * Ajax messages
+     */
+    public $msgError;
+
+    /**
      * fields
      */
     public $contract_order, $contract_title,

@@ -2,6 +2,8 @@
 services:
   nginx:
     container_name: "boff3-nginx"
+    image: boff3-nginx:latest
+    pull_policy: never
     build:
       context: ./docker/nginx
     depends_on:
@@ -13,6 +15,8 @@ services:
 
   app:
     container_name: "boff3-app"
+    image: boff3-app:latest
+    pull_policy: never
     build:
       context: ./docker/app
     depends_on:
