@@ -33,6 +33,11 @@ abstract class ClientPersonEditBase extends Component
     public $id;
 
     /**
+     * Error message
+     */
+    public $msgError;
+
+    /**
      * person roles
      */
     public $clientPersonRoles = [];

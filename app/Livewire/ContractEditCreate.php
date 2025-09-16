@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Contract;
 
 class ContractEditCreate extends ContractEditBase
@@ -59,6 +61,8 @@ class ContractEditCreate extends ContractEditBase
     {
         $this->validate();
         try {
+            //トランザクション開始
+            DB::beginTransaction();
             $contract = Contract::create([
                 'client_id' => $this->client->id,
                 'contract_order' => $this->contract_order,
@@ -79,12 +83,17 @@ class ContractEditCreate extends ContractEditBase
             $this->id = $contract->id;
 
             $this->saveDetails();
+            //コミット
+            DB::commit();
 
             $logMessage = 'Contract stored by ' . auth()->user()->name;
             logger($logMessage);
             session()->flash('message', 'Contract updated successfully.');
             return redirect()->route('contracts', ['client_id' => $this->client->id]);
         } catch (\Exception $e) {
+            // ロールバック
+            DB::rollBack();
+
             $logMessage = 'Contract updated error ' . $e->getMessage();
             logger($logMessage);
             session()->flash('error', 'There was a problem updating the contract.');

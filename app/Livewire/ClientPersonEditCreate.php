@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\ClientPerson;
 use App\Models\Client;
 
@@ -54,6 +56,9 @@ class ClientPersonEditCreate extends ClientPersonEditBase
     {
         $this->validate();
         try {
+            // トランザクションの開始
+            DB::beginTransaction();
+            $clientPerson =
             ClientPerson::create([
                 'client_id' => $this->client->id,
                 'psn_order' => $this->psn_order,
@@ -70,11 +75,15 @@ class ClientPersonEditCreate extends ClientPersonEditBase
                 'notes' => $this->notes,
                 'isvalid' => $this->isvalid,
             ]);
+            $this->id = $clientPerson->id;
             
             $this->saveClientPersonRoles();
-            
+            // コミット
+            DB::commit();
         } catch (\Exception $e) {
-            session()->flash('error', 'Error: ' . $e->getMessage());
+            // ロールバック
+            DB::rollBack();
+            $this->msgError = 'ClientPerson create error ' . $e->getMessage();
             return;
         }
         session()->flash('message', 'Client Person created successfully');
